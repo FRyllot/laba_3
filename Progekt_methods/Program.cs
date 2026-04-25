@@ -4,32 +4,32 @@ class Program
 {
     static void Main()
     {
-        Console.WriteLine(Power(2, 3));  
-        Console.WriteLine(Power(5, 2));  
-        Console.WriteLine(Power(3, 4));  
-        Console.WriteLine(Power(2, 0));  
-        Console.WriteLine(Power(4, -2)); 
+        Console.WriteLine(SafeDivide(10, 2));  
+        Console.WriteLine(SafeDivide(10, 0));  
+
+        Console.WriteLine(RegisterUser("Иван", 25, "ivan@mail.ru"));  
+        Console.WriteLine(RegisterUser("", 20, "test@mail.ru"));      
+        Console.WriteLine(RegisterUser("Петр", 16, "petr@mail.ru"));  
+        Console.WriteLine(RegisterUser("Анна", 30, "anna.ru"));       
     }
 
-    static double Power(double baseNumber, int exponent)
+    static double? SafeDivide(int a, int b)
     {
-        if (exponent == 0)
-            return 1;
+        if (b == 0)
+            return null;
+        return (double)a / b;
+    }
 
-        bool isNegativeExponent = exponent < 0;
+    static bool RegisterUser(string name, int age, string email)
+    {
+        if (string.IsNullOrEmpty(name))
+            return false;
+        if (age < 18)
+            return false;
+        if (!email.Contains('@'))
+            return false;
 
-        int absExponent = Math.Abs(exponent);
-
-        double result = 1;
-
-        for (int i = 0; i < absExponent; i++)
-        {
-            result *= baseNumber;
-        }
-
-        if (isNegativeExponent)
-            result = 1 / result;
-        
-        return result;
+        Console.WriteLine($"Пользователь {name} зарегистрирован");
+        return true;
     }
 }
