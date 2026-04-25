@@ -29,7 +29,7 @@ class Program
 
         if (isNegativeExponent)
             result = 1 / result;
-
+        
         return result;
     }
 }
